@@ -1,0 +1,69 @@
+{
+  "project_info": {
+    "project_number": "180926762606",
+    "firebase_url": "https://priros-49d29-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "priros-49d29",
+    "storage_bucket": "priros-49d29.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180926762606:android:2befb4732f16d1eb5e607f",
+        "android_client_info": {
+          "package_name": "com.lawandtech.priros"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180926762606-lmqobepadbh4qhi94gbv09oimli383fp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoroFY95DXFJIjZonWKezjkb-TmP5Wa-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180926762606-lmqobepadbh4qhi94gbv09oimli383fp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:180926762606:android:d7c63702aecc17915e607f",
+        "android_client_info": {
+          "package_name": "com.lawt.priros.app.expert"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "180926762606-lmqobepadbh4qhi94gbv09oimli383fp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoroFY95DXFJIjZonWKezjkb-TmP5Wa-k"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "180926762606-lmqobepadbh4qhi94gbv09oimli383fp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
