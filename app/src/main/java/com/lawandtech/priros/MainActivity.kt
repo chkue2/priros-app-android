@@ -129,7 +129,7 @@ class MainActivity : AppCompatActivity() {
         if(url != null) {
             webView.loadUrl(url)
         } else {
-            webView.loadUrl("https://app.dev.priros.com")
+            webView.loadUrl("https://app.priros.com")
         }
     }
 
