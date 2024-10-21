@@ -30,6 +30,7 @@ import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
 import com.google.firebase.messaging.FirebaseMessaging
+import java.io.File
 import java.io.OutputStream
 
 
@@ -139,8 +140,10 @@ class MainActivity : AppCompatActivity() {
             val base64 = base64Data.substringAfter(",")
             val decodedBytes = Base64.decode(base64, Base64.DEFAULT)
 
+            val uniqueFileName = getUniqueFileName(fileName)
+
             val contentValues = ContentValues().apply {
-                put(MediaStore.MediaColumns.DISPLAY_NAME, fileName)
+                put(MediaStore.MediaColumns.DISPLAY_NAME, uniqueFileName)
                 put(MediaStore.MediaColumns.MIME_TYPE, "application/octet-stream")
                 put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_DOWNLOADS)
             }
@@ -155,7 +158,7 @@ class MainActivity : AppCompatActivity() {
                     }
                     runOnUiThread {
                         Toast.makeText(this@MainActivity, "파일이 다운로드 되었습니다.", Toast.LENGTH_SHORT).show()
-                        showDownloadNotification(fileName)
+                        showDownloadNotification(uniqueFileName)
                     }
                 } catch (e: Exception) {
                     e.printStackTrace()
@@ -166,6 +169,25 @@ class MainActivity : AppCompatActivity() {
                     Toast.makeText(this@MainActivity, "파일 URI 생성에 실패하였습니다.", Toast.LENGTH_SHORT).show()
                 }
             }
+        }
+
+        private fun getUniqueFileName(fileName: String): String {
+            val directory = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS)
+            var uniqueFileName = fileName
+            var counter = 1
+
+            while(File(directory, uniqueFileName).exists()) {
+                val nameWithoutExtension = fileName.substringBeforeLast(".")
+                val extension = fileName.substringAfterLast(".", "")
+                uniqueFileName = if(extension.isNotEmpty()) {
+                    "$nameWithoutExtension ($counter).$extension"
+                } else {
+                    "$nameWithoutExtension ($counter)"
+                }
+                counter++
+            }
+
+            return uniqueFileName
         }
 
         // 파일 다운로드시 알림창에 띄워주기
