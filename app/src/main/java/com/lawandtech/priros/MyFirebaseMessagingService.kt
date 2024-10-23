@@ -13,14 +13,14 @@ import com.google.firebase.messaging.RemoteMessage
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onMessageReceived(message: RemoteMessage) {
         val url = message.data["url"]
-        sendNotification(message.notification?.body, url ?: "")
+        sendNotification(message.notification?.body, url ?: "https://app.priros.com")
     }
     private fun sendNotification(messageBody: String?, url: String) {
         val intent = Intent(this, MainActivity::class.java).apply {
             putExtra("url", url)
             flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
         }
-        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)
+        val pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
 
         val notificationBuilder = NotificationCompat.Builder(this, "1")
             .setContentTitle("프리로스")

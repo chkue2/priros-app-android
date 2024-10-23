@@ -48,6 +48,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         checkPermissions()
+        createNotificationChannel()
 
         setContentView(R.layout.activity_main)
 
@@ -346,6 +347,22 @@ class MainActivity : AppCompatActivity() {
     private fun handlePermissionDenied() {
         // 권한이 거부된 경우 처리할 코드
         Toast.makeText(this, "권한이 거부되었습니다. 기능을 사용하려면 권한을 허용해야 합니다.", Toast.LENGTH_SHORT).show()
+    }
+
+    private fun createNotificationChannel() {
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channelId = "1"
+            val channelName = "프리로스 알림"
+            val channelDescription = "프리로스 앱의 알림 채널입니다."
+            val importance = NotificationManager.IMPORTANCE_DEFAULT
+
+            val channel = NotificationChannel(channelId, channelName, importance).apply {
+                description = channelDescription
+            }
+
+            val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+            notificationManager.createNotificationChannel(channel)
+        }
     }
 
     companion object {
