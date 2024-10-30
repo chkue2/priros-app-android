@@ -125,6 +125,8 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        webView.settings.userAgentString = webView.settings.userAgentString + "ANDROID PRIROS"
+
         webView.addJavascriptInterface(WebAppInterface(webView.context), "Android")
 
         if(url != null) {
