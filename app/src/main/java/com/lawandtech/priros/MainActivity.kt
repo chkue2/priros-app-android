@@ -29,6 +29,7 @@ import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import androidx.core.content.FileProvider
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.google.firebase.messaging.FirebaseMessaging
 import java.io.File
 import java.io.OutputStream
@@ -37,6 +38,7 @@ import java.io.OutputStream
 class MainActivity : AppCompatActivity() {
     private lateinit var webViewContainer: FrameLayout
     private lateinit var webView: WebView
+    private lateinit var swipeRefreshLayout: SwipeRefreshLayout
     private var webViewPops = mutableListOf<WebView>()
 
 
@@ -65,6 +67,7 @@ class MainActivity : AppCompatActivity() {
 
         webViewContainer = findViewById(R.id.webView_frame)
         webView = findViewById(R.id.webView)
+        swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
 
         webView.settings.run {
             javaScriptEnabled = true
@@ -133,6 +136,17 @@ class MainActivity : AppCompatActivity() {
             webView.loadUrl(url)
         } else {
             webView.loadUrl("https://app.priros.com")
+        }
+
+        swipeRefreshLayout.setOnRefreshListener {
+            if(isWebViewTop()) {
+                webView.reload()
+            }
+            swipeRefreshLayout.isRefreshing = false
+        }
+
+        webView.setOnScrollChangeListener { _, _, scrollY, _, _ ->
+            swipeRefreshLayout.isEnabled = scrollY == 0
         }
     }
 
@@ -365,6 +379,10 @@ class MainActivity : AppCompatActivity() {
             val notificationManager: NotificationManager = getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
             notificationManager.createNotificationChannel(channel)
         }
+    }
+
+    private fun isWebViewTop(): Boolean {
+        return webView.scrollY == 0
     }
 
     companion object {
